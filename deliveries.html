@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">Admin Dashboard</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="index.html"><i class="la la-dashboard"></i><p>Dashboard</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="orders.html"><i class="la la-shopping-cart"></i><p>Orders</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="pro.html"><i class="la la-cubes"></i><p>Products</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="inventory.html"><i class="la la-archive"></i><p>Inventory</p></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="deliveries.html"><i class="la la-truck"></i><p>Deliveries & Logistics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="payment.html"><i class="la la-credit-card"></i><p>Billing & Payments</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="retailers.html"><i class="la la-users"></i><p>Retailers</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="reports.html"><i class="la la-bar-chart"></i><p>Reports & Analytics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="management.html"><i class="la la-lock"></i><p>User & Role Management</p></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">Deliveries & Logistics</h4>
+
+            <!-- Delivery Summary Cards -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Total Deliveries</h5>
+                            <h3>04</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>In Transit</h5>
+                            <h3>02</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Delivered</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Delayed</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Assign Delivery Schedule Form ===== -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Assign Delivery Schedule</h5>
+    </div>
+    <div class="card-body">
+        <form id="scheduleForm">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Delivery ID</label>
+                        <input type="text" id="deliveryId" class="form-control" placeholder="1001">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Order ID</label>
+                        <input type="text" id="orderId" class="form-control" placeholder="101">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Retailer</label>
+                        <input type="text" id="retailerName" class="form-control" placeholder="ABC Supermarket">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Driver ID</label>
+                        <input type="text" id="driverId" class="form-control" placeholder="01">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>RDC</label>
+                        <select id="rdc" class="form-control">
+                            <option>Central RDC</option>
+                            <option>Western RDC</option>
+                            <option>Southern RDC</option>
+                            <option>Northern RDC</option>
+                            <option>Eastern RDC</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Delivery Date</label>
+                        <input type="date" id="deliveryDate" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Delivery Status</label>
+                        <select id="deliveryStatus" class="form-control">
+                            <option>Pending</option>
+                            <option>In Transit</option>
+                            <option>Delivered</option>
+                            <option>Delayed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Route Details</label>
+                        <input type="text" id="routeDetails" class="form-control" placeholder="Central RDC → North District">
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Assign Delivery</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById("scheduleForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // stop page reload
+
+    // Get form values
+    const deliveryId = document.getElementById("deliveryId").value.trim();
+    const orderId = document.getElementById("orderId").value.trim();
+    const driverId = document.getElementById("driverId").value.trim();
+    const deliveryDate = document.getElementById("deliveryDate").value;
+    const deliveryStatus = document.getElementById("deliveryStatus").value;
+    const routeDetails = document.getElementById("routeDetails").value.trim();
+
+    // Validation
+    if (!deliveryId || !orderId || !driverId || !deliveryDate || !routeDetails) {
+        alert("Please fill all delivery details");
+        return;
+    }
+
+    // Success message (localhost alert)
+    alert("Delivery assigned successfully!");
+
+    // Reset form
+    document.getElementById("scheduleForm").reset();
+});
+</script>
+
+
+
+           <!-- Deliveries Table -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Delivery Orders</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>Delivery ID</th>
+                    <th>Order ID</th>
+                    <th>Retailer</th>
+                    <th>Driver ID</th>
+                    <th>RDC</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                    <th>Route Details</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>1001</td>
+                    <td>101</td>
+                    <td>ABC Supermarket</td>
+                    <td>01</td>
+                    <td>Central RDC</td>
+                    <td>2026-01-17</td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                    <td>Central RDC → Colombo</td>
+                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                </tr>
+
+                <tr>
+                    <td>1002</td>
+                    <td>102</td>
+                    <td>City Retailers</td>
+                    <td>02</td>
+                    <td>Western RDC</td>
+                    <td>2026-01-17</td>
+                    <td><span class="badge badge-success">Delivered</span></td>
+                    <td>Western RDC → Gampaha</td>
+                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                </tr>
+
+                <tr>
+                    <td>1003</td>
+                    <td>103</td>
+                    <td>Fresh Mart</td>
+                    <td>03</td>
+                    <td>Southern RDC</td>
+                    <td>2026-01-18</td>
+                    <td><span class="badge badge-info">In Transit</span></td>
+                    <td>Southern RDC → Matara</td>
+                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                </tr>
+
+                <tr>
+                    <td>1004</td>
+                    <td>104</td>
+                    <td>Green Market</td>
+                    <td>04</td>
+                    <td>Northern RDC</td>
+                    <td>2026-01-20</td>
+                    <td><span class="badge badge-warning">Pending</span></td>
+                    <td>Northern RDC → Jaffna</td>
+                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container-fluid text-center">
+            ©️ 2026 IslandLink Sales Distribution Network (ISDN)
+        </div>
+    </footer>
+</div>
+</div>
+
+<!-- JS -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+<script>
+document.getElementById("scheduleForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent form from submitting
+
+    // Read values
+    const deliveryId = document.getElementById("deliveryId").value.trim();
+    const orderId = document.getElementById("orderId").value.trim();
+    const retailer = document.getElementById("retailer").value.trim();
+    const rdc = document.getElementById("rdc").value.trim();
+    const driver = document.getElementById("driver").value.trim();
+    const vehicle = document.getElementById("vehicle").value.trim();
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const status = document.getElementById("status").value;
+
+    // Basic validation
+    if (!deliveryId || !orderId || !retailer || !rdc || !driver || !vehicle || !date || !time) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    // Show success message
+    alert("Delivery schedule assigned successfully!");
+
+    // Clear form fields after success
+    document.getElementById("scheduleForm").reset();
+});
+</script>
+
+</body>
+</html>

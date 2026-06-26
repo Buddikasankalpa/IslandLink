@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">Driver</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                
+                <li class="nav-item ">
+                    <a href="driver.html"><i class="la la-truck"></i><p>My Deliveries</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="driver_route.html"><i class="la la-truck"></i><p>Route Map</p></a>
+                </li>
+                <li class="nav-item">
+                     <a href="delivery_status.html"><i class="la la-map"></i><p>Update Status</p></a>
+                </li>
+                <li class="nav-item active">
+                     <a href="delivery_history.html"><i class="la la-location-arrow"></i><p>Delivery History</p></a>
+                </li>
+                
+                
+                
+            </ul>
+        </div>
+    </div>
+
+        <!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">Delivery History</h4>
+            </div>
+                </div>
+
+            </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid text-center">
+                © 2026 IslandLink Sales Distribution Network (ISDN)
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- JS -->
+
+<script>
+document.getElementById("scheduleForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // stop page reload
+
+    // Get form values
+    const deliveryId = document.getElementById("deliveryId").value.trim();
+    const orderId = document.getElementById("orderId").value.trim();
+    const driverId = document.getElementById("driverId").value.trim();
+    const deliveryDate = document.getElementById("deliveryDate").value;
+    const deliveryStatus = document.getElementById("deliveryStatus").value;
+    const routeDetails = document.getElementById("routeDetails").value.trim();
+
+    // Validation
+    if (!deliveryId || !orderId || !driverId || !deliveryDate || !routeDetails) {
+        alert("Please fill all delivery details");
+        return;
+    }
+
+    // Success message (localhost alert)
+    alert("Delivery assigned successfully!");
+
+    // Reset form
+    document.getElementById("scheduleForm").reset();
+});
+</script>
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">HO Manager Dashboard</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="HO.html"><i class="la la-dashboard"></i><p>Sales Overview</p></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="RDC-performance.html"><i class="la la-cubes"></i><p>RDC Performance</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="ho_inventory.html"><i class="la la-archive"></i><p>Inventory</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="ho_deliveries.html"><i class="la la-truck"></i><p>Deliveries & Logistics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="ho_reports.html"><i class="la la-bar-chart"></i><p>Reports & Analytics</p></a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+ <!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">RDC Performance</h4>
+            </div>
+                </div>
+
+            </div>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid text-center">
+                © 2026 IslandLink Sales Distribution Network (ISDN)
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+</body>
+</html>

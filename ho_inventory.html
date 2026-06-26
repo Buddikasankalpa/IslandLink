@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">HO Manager Dashboard</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="HO.html"><i class="la la-dashboard"></i><p>Sales Overview</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="RDC-performance.html"><i class="la la-cubes"></i><p>RDC Performance</p></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="ho_inventory.html"><i class="la la-archive"></i><p>Inventory</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="ho_deliveries.html"><i class="la la-truck"></i><p>Deliveries & Logistics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="ho_reports.html"><i class="la la-bar-chart"></i><p>Reports & Analytics</p></a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+<!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">Inventory Management</h4>
+
+            <!-- Inventory Summary -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Total Products</h5>
+                            <h3>08</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Low Stock Items</h5>
+                            <h3>02</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Out of Stock</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Total Stock Value</h5>
+                            <h3>Rs.205,500</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Table (Updated) -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Inventory Status</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="inventoryTable">
+            <thead class="thead-light">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>RDC</th>
+                    <th>Available Qty</th>
+                    <th>Reorder Level</th>
+                    <th>Status</th>
+                    <th>Update Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rice</td>
+                    <td>Packaged Food</td>
+                    <td>Central RDC</td>
+                    <td id="stock-Rice5kg">140</td>
+                    <td>50</td>
+                    <td><span class="badge badge-success" id="status-Rice5kg">In Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Rice5kg" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Rice5kg')">Update</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Flour</td>
+                    <td>Packaged Food</td>
+                    <td>Western RDC</td>
+                    <td id="stock-Flour">10</td>
+                    <td>40</td>
+                    <td><span class="badge badge-warning" id="status-Flour">Low Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Flour" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Flour')">Update</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pulses</td>
+                    <td>Packaged Food</td>
+                    <td>Southern RDC</td>
+                    <td id="stock-Pulses">0</td>
+                    <td>30</td>
+                    <td><span class="badge badge-danger" id="status-Pulses">Out of Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Pulses" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Pulses')">Update</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Canned Food</td>
+                    <td>Packaged Food</td>
+                    <td>Southern RDC</td>
+                    <td id="stock-Pulses">40</td>
+                    <td>30</td>
+                    <td><span class="badge badge-success" id="status-Pulses">In Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Pulses" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Pulses')">Update</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Banana</td>
+                    <td>Fruits</td>
+                    <td>Southern RDC</td>
+                    <td id="stock-Pulses">50</td>
+                    <td>50</td>
+                    <td><span class="badge badge-success" id="status-Pulses">In Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Pulses" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Pulses')">Update</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Oranges</td>
+                    <td>Fruits</td>
+                    <td>Southern RDC</td>
+                    <td id="stock-Pulses">5</td>
+                    <td>30</td>
+                    <td><span class="badge badge-warning" id="status-Pulses">Low Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Pulses" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Pulses')">Update</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Brinjal</td>
+                    <td>Vegetables</td>
+                    <td>Central RDC</td>
+                    <td id="stock-Pulses">50</td>
+                    <td>30</td>
+                    <td><span class="badge badge-success" id="status-Pulses">In Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Pulses" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Pulses')">Update</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Cabbage</td>
+                    <td>Vegetables</td>
+                    <td>Central RDC</td>
+                    <td id="stock-Pulses">28</td>
+                    <td>30</td>
+                    <td><span class="badge badge-success" id="status-Pulses">In Stock</span></td>
+                    <td>
+                        <input type="number" id="input-Pulses" placeholder="Add Qty" style="width:80px;">
+                        <button class="btn btn-sm btn-primary" onclick="updateStock('Pulses')">Update</button>
+                    </td>
+                </tr>
+                <!-- Repeat for all other products -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Function to update stock
+function updateStock(productId) {
+    const inputElem = document.getElementById(`input-${productId}`);
+    const qtyToAdd = parseInt(inputElem.value);
+
+    if (!qtyToAdd || qtyToAdd <= 0) {
+        alert("Please enter a valid quantity");
+        return;
+    }
+
+    const stockElem = document.getElementById(`stock-${productId}`);
+    const statusElem = document.getElementById(`status-${productId}`);
+    const currentStock = parseInt(stockElem.innerText);
+
+    const newStock = currentStock + qtyToAdd;
+    stockElem.innerText = newStock;
+
+    // Update status based on stock and reorder level
+    const reorderLevel = parseInt(stockElem.parentElement.children[4].innerText);
+    if (newStock === 0) {
+        statusElem.innerText = "Out of Stock";
+        statusElem.className = "badge badge-danger";
+    } else if (newStock <= reorderLevel) {
+        statusElem.innerText = "Low Stock";
+        statusElem.className = "badge badge-warning";
+    } else {
+        statusElem.innerText = "In Stock";
+        statusElem.className = "badge badge-success";
+    }
+
+    // Success message
+    alert("Stock updated");
+
+    // Reset input
+    inputElem.value = "";
+}
+</script>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid text-center">
+                © 2026 IslandLink Sales Distribution Network (ISDN)
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+</body>
+</html>

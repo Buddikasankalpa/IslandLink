@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">RDC Dashboard</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="RDC.html"><i class="la la-dashboard"></i><p>Dashboard</p></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="rdc_orders.html"><i class="la la-shopping-cart"></i><p>Orders</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="stock.html"><i class="la la-cubes"></i><p>Stock Transfers</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="rdc_inventory.html"><i class="la la-archive"></i><p>Inventory</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="rdc_deliveries.html"><i class="la la-truck"></i><p>Deliveries & Logistics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="rdc_reports.html"><i class="la la-bar-chart"></i><p>Reports & Analytics</p></a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+<!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">Orders Management</h4>
+
+            <!-- Orders Summary Cards -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Total Orders</h5>
+                            <h3>04</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Pending Orders</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Delivered</h5>
+                            <h3>03</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Cancelled</h5>
+                            <h3>0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- ===== Place Order Form ===== -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Place Order</h5>
+    </div>
+    <div class="card-body">
+
+        <form id="orderForm">
+            <!-- your form fields stay exactly here -->
+
+            <form id="orderForm">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Order ID</label>
+                <input type="text" id="orderId" class="form-control" placeholder="1006">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Retailer Name</label>
+                <input type="text" id="retailerName" class="form-control" placeholder="Retailer Name">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Order Date</label>
+                <input type="date" id="orderDate" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Product</label>
+                <input type="text" id="productName" class="form-control" placeholder="Product Name">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="quantity" class="form-control" placeholder="Quantity">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Total Amount (Rs.)</label>
+                <input type="number" id="amount" class="form-control" placeholder="Total Amount">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Status</label>
+                <select id="orderStatus" class="form-control">
+                    <option>Pending</option>
+                    <option>In Transit</option>
+                    <option>Delivered</option>
+                    <option>Cancelled</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Place Order</button>
+</form>
+        </form>
+
+    </div>
+</div>
+<!-- ===== Orders Table ===== -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Recent Orders</h5>
+    </div>
+    <div class="card-body">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <!-- your thead and tbody stay here -->
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>Order ID</th>
+            <th>Retailer</th>
+            <th>Order Date</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1001</td>
+            <td>ABC Supermarket</td>
+            <td>2026-01-17</td>
+            <td>Canned Food</td>
+            <td>10</td>
+            <td>Rs. 7,000</td>
+            <td><span class="badge badge-warning">Pending</span></td>
+            <td><button class="btn btn-sm btn-primary">View</button></td>
+        </tr>
+
+        <tr>
+            <td>1002</td>
+            <td>City Retailers</td>
+            <td>2026-01-18</td>
+            <td>Banana</td>
+            <td>10</td>
+            <td>Rs. 2,500</td>
+            <td><span class="badge badge-success">Delivered</span></td>
+            <td><button class="btn btn-sm btn-primary">View</button></td>
+        </tr>
+         <tr>
+            <td>1003</td>
+            <td>Fresh Mart</td>
+            <td>2026-01-20</td>
+            <td>Rice</td>
+            <td>15</td>
+            <td>Rs. 18,000</td>
+            <td><span class="badge badge-success">Delivered</span></td>
+            <td><button class="btn btn-sm btn-primary">View</button></td>
+        </tr>
+         <tr>
+            <td>1004</td>
+            <td>Green Market</td>
+            <td>2026-01-20</td>
+            <td>Flour</td>
+            <td>10</td>
+            <td>Rs. 3,500</td>
+            <td><span class="badge badge-success">Delivered</span></td>
+            <td><button class="btn btn-sm btn-primary">View</button></td>
+        </tr>
+        <tr>
+            <td>1005</td>
+            <td>ABC Supermarket</td>
+            <td>2026-01-21</td>
+            <td>Rice</td>
+            <td>5</td>
+            <td>Rs. 6,000</td>
+            <td><span class="badge badge-warning">Pending</span></td>
+            <td><button class="btn btn-sm btn-primary">View</button></td>
+        </tr>
+    </tbody>
+</table>
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid text-center">
+                ©️ 2026 IslandLink Sales Distribution Network (ISDN)
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+<!-- Success Message Script -->
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent form submission
+
+    // Get values
+    const retailerName = document.getElementById("retailerName").value.trim();
+    const orderDate = document.getElementById("orderDate").value;
+    const productName = document.getElementById("productName").value.trim();
+    const quantity = document.getElementById("quantity").value;
+    const amount = document.getElementById("amount").value;
+    const status = document.getElementById("orderStatus").value;
+
+    // Validation
+    if (!retailerName || !orderDate || !productName || !quantity || !amount) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    // Success message
+    alert("Order placed successfully!");
+
+    // Reset form
+    document.getElementById("orderForm").reset();
+});
+</script>
+
+</body>
+</html>

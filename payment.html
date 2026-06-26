@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">Admin Dashboard</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="index.html"><i class="la la-dashboard"></i><p>Dashboard</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="orders.html"><i class="la la-shopping-cart"></i><p>Orders</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="pro.html"><i class="la la-cubes"></i><p>Products</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="inventory.html"><i class="la la-archive"></i><p>Inventory</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="deliveries.html"><i class="la la-truck"></i><p>Deliveries & Logistics</p></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="payment.html"><i class="la la-credit-card"></i><p>Billing & Payments</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="retailers.html"><i class="la la-users"></i><p>Retailers</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="reports.html"><i class="la la-bar-chart"></i><p>Reports & Analytics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="management.html"><i class="la la-lock"></i><p>User & Role Management</p></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">Billing & Payments</h4>
+
+            <!-- Billing Summary Cards (unchanged) -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Total Invoices</h5>
+                            <h3>04</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Paid</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Pending</h5>
+                            <h3>02</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Overdue</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- Payment Form -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Make a Payment</h5>
+    </div>
+    <div class="card-body">
+        <form id="paymentForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Invoice ID</label>
+                        <input type="text" id="invoiceId" class="form-control" placeholder="005">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Order ID</label>
+                        <input type="text" id="orderId" class="form-control" placeholder="1005">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Retailer</label>
+                        <input type="text" id="retailer" class="form-control" placeholder="City Retailers">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Date Issued</label>
+                        <input type="date" id="dateIssued" class="form-control" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" id="cardNumber" class="form-control" placeholder="4111 1111 1111 1111">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="month" id="expiryDate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="password" id="cvv" class="form-control" placeholder="123">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Amount (Rs.)</label>
+                        <input type="number" id="amount" class="form-control" placeholder="Enter Amount">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Pay Now</button>
+        </form>
+    </div>
+</div>
+
+<!-- Payment Form Script -->
+<script>
+document.getElementById("paymentForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent actual form submission
+
+    // Get values
+    const invoiceId = document.getElementById("invoiceId").value.trim();
+    const orderId = document.getElementById("orderId").value.trim();
+    const retailer = document.getElementById("retailer").value.trim();
+    const dateIssued = document.getElementById("dateIssued").value;
+    const cardNumber = document.getElementById("cardNumber").value.trim();
+    const expiryDate = document.getElementById("expiryDate").value;
+    const cvv = document.getElementById("cvv").value.trim();
+    const amount = document.getElementById("amount").value;
+
+    // Simple validation
+    if (!invoiceId || !orderId || !retailer || !dateIssued || !cardNumber || !expiryDate || !cvv || !amount) {
+        alert("Please fill all payment details");
+        return;
+    }
+
+    // Simulate successful payment
+    alert("Payment success!");
+
+    // Reset form
+    document.getElementById("paymentForm").reset();
+});
+</script>
+
+            <!-- Invoices Table (unchanged) -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5>Invoices</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Order ID</th>
+                                <th>Retailer</th>
+                                <th>Date Issued</th>
+                                <th>Total Amount</th>
+                                <th>Payment Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>1001</td>
+                                <td>ABC Supermarket</td>
+                                <td>2026-01-17</td>
+                                <td>Rs. 7,000</td>
+                                <td><span class="badge badge-success">Paid</span></td>
+                                <td><button class="btn btn-sm btn-primary">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>1002</td>
+                                <td>City Retailers</td>
+                                <td>2026-01-18</td>
+                                <td>Rs. 2,500</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td><button class="btn btn-sm btn-primary">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>003</td>
+                                <td>1003</td>
+                                <td>Fresh Mart</td>
+                                <td>2026-01-20</td>
+                                <td>Rs. 18,000</td>
+                                <td><span class="badge badge-danger">Overdue</span></td>
+                                <td><button class="btn btn-sm btn-primary">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>004</td>
+                                <td>1004</td>
+                                <td>Green Market</td>
+                                <td>2026-01-20</td>
+                                <td>Rs. 3,500</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td><button class="btn btn-sm btn-primary">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>005</td>
+                                <td>1005</td>
+                                <td>ABC Supermarket</td>
+                                <td>2026-01-21</td>
+                                <td>Rs. 6,000</td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td><button class="btn btn-sm btn-primary">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container-fluid text-center">
+            © 2026 IslandLink Sales Distribution Network (ISDN)
+        </div>
+    </footer>
+
+
+<!-- JS -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ISDN | Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700">
+    <link rel="stylesheet" href="assets/css/ready.css">
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- ===== HEADER ===== -->
+<div class="main-header">
+    <div class="logo-header">
+        <a href="#" class="logo">Admin Dashboard</a>
+    </div>
+
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid d-flex justify-content-end align-items-center">
+            <!-- Welcome Username -->
+            <span class="me-3">
+                <?php
+                session_start();
+                if(isset($_SESSION['user'])){
+                    echo "Welcome, " . htmlspecialchars($_SESSION['user']['name']);
+                } else {
+                    echo "Welcome, Guest";
+                }
+                ?>
+            </span>
+
+            <!-- Logout Button -->
+            <a href="logout.php" class="btn btn-sm btn-danger">Logout</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+        <div class="sidebar-wrapper scrollbar-inner">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="index.html"><i class="la la-dashboard"></i><p>Dashboard</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="orders.html"><i class="la la-shopping-cart"></i><p>Orders</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="pro.html"><i class="la la-cubes"></i><p>Products</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="inventory.html"><i class="la la-archive"></i><p>Inventory</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="deliveries.html"><i class="la la-truck"></i><p>Deliveries & Logistics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="payment.html"><i class="la la-credit-card"></i><p>Billing & Payments</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="retailers.html"><i class="la la-users"></i><p>Retailers</p></a>
+                </li>
+                <li class="nav-item active">
+                    <a href="reports.html"><i class="la la-bar-chart"></i><p>Reports & Analytics</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="management.html"><i class="la la-lock"></i><p>User & Role Management</p></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<!-- ===== MAIN PANEL ===== -->
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+
+            <h4 class="page-title">Reports & Analytics</h4>
+
+
+
+            <!-- Summary Cards -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Total Sales</h5>
+                            <h3>Rs. 30,500</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Orders Processed</h5>
+                            <h3>04</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Inventory Remaining</h5>
+                            <h3>333 Items</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5>Deliveries Completed</h5>
+                            <h3>01</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+    <div class="col-md-12 text-right">
+        <button class="btn btn-primary" onclick="generateReport()">
+            Generate Report
+        </button>
+    </div>
+</div>
+
+
+            <!-- Charts -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Sales by Product Category</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="salesChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Delivery Status Overview</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="deliveryChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Generated Report -->
+<div class="card mt-4" id="reportSection" style="display:none;">
+    <div class="card-header">
+        <h5>Generated System Report</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Total Sales:</strong> Rs. 30,500</p>
+        <p><strong>Orders Processed:</strong> 05</p>
+        <p><strong>Inventory Remaining:</strong> 333 Items</p>
+        <p><strong>Deliveries Completed:</strong> 01</p>
+
+        <hr>
+
+        <h6>Top Selling Products</h6>
+        <ul>
+            <li>Rice – Rs. 24,000</li>
+            <li>Canned Food – Rs. 7,000</li>
+            <li>Flour – Rs. 3,500</li>
+            <li>Banana – Rs. 2,500</li>
+        </ul>
+
+        <h6>Delivery Status Summary</h6>
+        <ul>
+            <li>Delivered: 01</li>
+            <li>In Transit: 01</li>
+            <li>Pending: 02</li>
+        </ul>
+    </div>
+</div>
+
+
+
+<!-- Charts JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Sales Chart
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(salesCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Rice', 'Canned Food', 'Flour', 'Banana'],
+            datasets: [{
+                label: 'Sales (Rs)',
+                data: [30500, 7000, 3500, 2500 ],
+                backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+        }
+    });
+
+    // Delivery Status Chart
+    const deliveryCtx = document.getElementById('deliveryChart').getContext('2d');
+    const deliveryChart = new Chart(deliveryCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Delivered', 'In Transit', 'Pending'],
+            datasets: [{
+                label: 'Deliveries',
+                data: [250, 250, 500],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(255, 99, 132, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: { responsive: true }
+    });
+</script>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container-fluid text-center">
+                © 2026 IslandLink Sales Distribution Network (ISDN)
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/ready.min.js"></script>
+
+</body>
+</html>
