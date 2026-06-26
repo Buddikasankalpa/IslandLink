@@ -38,10 +38,5 @@ The application connects to the MySQL database using the settings in [db.php](db
 - Password: empty
 - Database: `isdn`
 
-## Notes
-- New products are created with stock handling managed through RDC workflows.
-- Customer orders reduce available stock automatically.
-- Reports and dashboards are available for administrative and operational monitoring.
-
 ## License
 This project is distributed under the terms of the included license files.
