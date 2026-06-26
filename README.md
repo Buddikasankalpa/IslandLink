@@ -1,9 +1,47 @@
-# Ready-Bootstrap-Dashboard
-![](https://i.imgur.com/8hYeuW3.png)
-Free Bootstrap 4 Admin Dashboard
+# IslandLink
 
-If you are a developer or website owner who needs to work on the dashboard and want to have a beautiful design while doing it, the Ready Bootstrap Dashboard is for you.
+IslandLink is a web-based inventory, ordering, and logistics management system designed for a fresh produce supply chain. It provides role-based dashboards for administrators, regional distribution centers (RDCs), head office staff, logistics officers, drivers, and customers.
 
-Ready Bootstrap Dashboard is a Boostrap 4 Dashboard kit we developed and shared for free that you can use for your next web project.
+## Features
+- Product and inventory management
+- Stock updates from RDC operations
+- Customer order placement and order tracking
+- Delivery and route management
+- Role-based dashboards for different users
+- Sales, stock, and delivery reporting
 
-We make it with a minimalist design, fast, and easy to use. There is a sidebar on the left, a top menu, and a main panel where you can put the components you need. Available components you need include cards, charts, notifications, maps, buttons, inputs and more.
+## Technology Stack
+- PHP
+- MySQL
+- Bootstrap and jQuery
+- XAMPP for local development
+
+## Setup Instructions
+1. Place the project folder in your XAMPP web root, usually `C:\xampp\htdocs\IslandLink`.
+2. Start Apache and MySQL from XAMPP.
+3. Open phpMyAdmin and create/import the database named `isdn`.
+4. Import the SQL file from [isdn.sql](isdn.sql).
+5. Open the application in your browser at `http://localhost/IslandLink/`.
+
+## Default Login Accounts
+- Admin: `admin@gmail.com` / `123456`
+- RDC: `rdc@gmail.com` / `123456`
+- Customer: `customer@gmail.com` / `123456`
+- Head Office: `homanager@gmail.com` / `123456`
+- Logistics Officer: `logisticsofficer@gmail.com` / `123456`
+- Driver: `driver@gmail.com` / `123456`
+
+## Database Configuration
+The application connects to the MySQL database using the settings in [db.php](db.php). By default, it uses:
+- Host: `localhost`
+- Username: `root`
+- Password: empty
+- Database: `isdn`
+
+## Notes
+- New products are created with stock handling managed through RDC workflows.
+- Customer orders reduce available stock automatically.
+- Reports and dashboards are available for administrative and operational monitoring.
+
+## License
+This project is distributed under the terms of the included license files.
